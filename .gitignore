@@ -1,0 +1,19 @@
+﻿# ESP-IDF Build Artifacts
+build/
+sdkconfig.old
+*.bin
+*.elf
+*.map
+
+# Python & Jupyter
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS & IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
