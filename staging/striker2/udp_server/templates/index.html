@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UDP Commands - Motion Control</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .block {
+      background-color: #f9fafb;
+      border: 1px solid #d0d7de;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .block h3 {
+      margin-top: 0;
+      color: #1f2937;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    #response {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>UDP Motion Command Sender</h2>
+
+    <!-- C1 -->
+    <div class="block">
+      <h3>Straight Line Movement (C1)</h3>
+      <label>Angle (°)</label>
+      <input type="number" id="angleC1" step="any">
+
+      <label>Speed (cm/s)</label>
+      <input type="number" id="speedC1" step="any">
+
+      <label>Distance (cm)</label>
+      <input type="number" id="distanceC1" step="any">
+
+      <button onclick="sendC1()">Send C1</button>
+    </div>
+
+    <!-- C2 -->
+    <div class="block">
+      <h3>Rotate in Place (C2)</h3>
+      <label>Angle (°)</label>
+      <input type="number" id="angleC2" step="any">
+
+      <label>Angular Speed (rad/s)</label>
+      <input type="number" id="speedC2" step="any">
+
+      <button onclick="sendC2()">Send C2</button>
+    </div>
+
+    <!-- C3 -->
+    <div class="block">
+      <h3>Circular Movement (C3)</h3>
+      <label>Direction</label>
+      <select id="directionC3">
+        <option value="CW">CW</option>
+        <option value="CCW">CCW</option>
+      </select>
+
+      <label>Radius (cm)</label>
+      <input type="number" id="radiusC3" step="any">
+
+      <label>Speed (cm/s)</label>
+      <input type="number" id="speedC3" step="any">
+
+      <label>Angle (°)</label>
+      <input type="number" id="angleC3" step="any">
+
+      <button onclick="sendC3()">Send C3</button>
+    </div>
+
+    <p id="response"></p>
+  </div>
+
+  <script>
+    async function sendCommand(message) {
+      const formData = new FormData();
+      formData.append("command", message);
+      try {
+        const res = await fetch("/send", { method: "POST", body: formData });
+        const text = await res.text();
+        const r = document.getElementById("response");
+        r.style.color = "green";
+        r.textContent = text;
+      } catch {
+        const r = document.getElementById("response");
+        r.textContent = "Error sending command.";
+        r.style.color = "red";
+      }
+    }
+
+    function sendC1() {
+      const angle = document.getElementById("angleC1").value;
+      const speed = document.getElementById("speedC1").value;
+      const distance = document.getElementById("distanceC1").value;
+      const message = `C1,${angle},${speed},${distance}`;
+      sendCommand(message);
+      document.getElementById("angleC1").value = "";
+      document.getElementById("speedC1").value = "";
+      document.getElementById("distanceC1").value = "";
+    }
+
+    function sendC2() {
+      const angle = document.getElementById("angleC2").value;
+      const speed = document.getElementById("speedC2").value;
+      const message = `C2,${angle},${speed}`;
+      sendCommand(message);
+      document.getElementById("angleC2").value = "";
+      document.getElementById("speedC2").value = "";
+    }
+
+    function sendC3() {
+      const direction = document.getElementById("directionC3").value;
+      const radius = document.getElementById("radiusC3").value;
+      const speed = document.getElementById("speedC3").value;
+      const angle = document.getElementById("angleC3").value;
+      const message = `C3,${direction},${radius},${speed},${angle}`;
+      sendCommand(message);
+      document.getElementById("directionC3").value = "CW";
+      document.getElementById("radiusC3").value = "";
+      document.getElementById("speedC3").value = "";
+      document.getElementById("angleC3").value = "";
+    }
+  </script>
+</body>
+</html>

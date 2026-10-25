@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/CMakeFiles/bootloader
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/CMakeFiles/bootloader.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/CMakeFiles/bootloader-complete.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+E:/esp/RoboCup/RoboCup_Striker2/APDS9960-driver/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
