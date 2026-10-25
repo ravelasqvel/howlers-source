@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vision System Simulation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .block {
+      background-color: #f9fafb;
+      border: 1px solid #d0d7de;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .section-title {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #111827;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 16px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    #response {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Vision System Simulation</h2>
+
+    <div class="block">
+      <div class="section-title">Robot</div>
+      <label>X</label>
+      <input type="number" id="robotX" step="any">
+      <label>Y</label>
+      <input type="number" id="robotY" step="any">
+      <label>Theta (Angle)</label>
+      <input type="number" id="robotTheta" step="any">
+
+      <div class="section-title">Ball</div>
+      <label>X</label>
+      <input type="number" id="ballX" step="any">
+      <label>Y</label>
+      <input type="number" id="ballY" step="any">
+
+      <div class="section-title">Dummies</div>
+      <label>Dummy 1 - X</label>
+      <input type="number" id="dummy1X" step="any">
+      <label>Dummy 1 - Y</label>
+      <input type="number" id="dummy1Y" step="any">
+
+      <label>Dummy 2 - X</label>
+      <input type="number" id="dummy2X" step="any">
+      <label>Dummy 2 - Y</label>
+      <input type="number" id="dummy2Y" step="any">
+
+      <label>Dummy 3 - X</label>
+      <input type="number" id="dummy3X" step="any">
+      <label>Dummy 3 - Y</label>
+      <input type="number" id="dummy3Y" step="any">
+
+      <button onclick="sendJson()">Send JSON Data</button>
+    </div>
+
+    <p id="response"></p>
+  </div>
+
+  <script>
+    async function sendJson() {
+      const data = {
+        robot: {
+          x: parseFloat(document.getElementById("robotX").value),
+          y: parseFloat(document.getElementById("robotY").value),
+          theta: parseFloat(document.getElementById("robotTheta").value)  // Add theta
+        },
+        ball: {
+          x: parseFloat(document.getElementById("ballX").value),
+          y: parseFloat(document.getElementById("ballY").value)
+        },
+        dummies: [
+          { x: parseFloat(document.getElementById("dummy1X").value), y: parseFloat(document.getElementById("dummy1Y").value) },
+          { x: parseFloat(document.getElementById("dummy2X").value), y: parseFloat(document.getElementById("dummy2Y").value) },
+          { x: parseFloat(document.getElementById("dummy3X").value), y: parseFloat(document.getElementById("dummy3Y").value) }
+        ]
+      };
+
+      try {
+        const res = await fetch("/send", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        const text = await res.text();
+        const r = document.getElementById("response");
+        r.style.color = "green";
+        r.textContent = "✅ Sent successfully: " + text;
+      } catch (error) {
+        const r = document.getElementById("response");
+        r.style.color = "red";
+        r.textContent = "❌ Error sending data.";
+      }
+    }
+  </script>
+</body>
+</html>
