@@ -1,13 +1,13 @@
-
+﻿
 file(GLOB MAIN_SRCS "main.c" "tasks.c" "functions.c" "*.c")
-file(GLOB PLATFORM_SRCS "../components/platform/*.c")
-file(GLOB AS5600_SRCS "../components/drivers/as5600/*.c")
-file(GLOB BLDC_PWM_SRCS "../components/drivers/bldc_pwm/*.c")
-file(GLOB CONTROL_SRCS "../components/control/*.c")
-file(GLOB BNO055_SRCS "../components/drivers/bno055/*.c")
-file(GLOB LED_SRCS "../components/drivers/led/*.c")
-file(GLOB UART_CONSOLE_SRCS "../components/drivers/uart_console/*.c")
-file(GLOB VL53L1X_SRCS "../components/drivers/vl53l1x/*.c")
+file(GLOB PLATFORM_SRCS "../../../../components/platform_hal/v2_striker2/*.c")
+file(GLOB AS5600_SRCS "../../../../components/sensors/as5600/v2_striker2/*.c")
+file(GLOB BLDC_PWM_SRCS "../../../../components/actuators/bldc_pwm/v2_striker2/*.c")
+file(GLOB CONTROL_SRCS "../../../../components/control/pid_lib/v2_striker2/*.c")
+file(GLOB BNO055_SRCS "../../../../components/sensors/bno055/v2_striker2/*.c")
+file(GLOB LED_SRCS "../../../../components/actuators/led_status/v2_striker2/*.c")
+file(GLOB UART_CONSOLE_SRCS "../../../../components/comms/uart_console/v2_striker2/*.c")
+file(GLOB VL53L1X_SRCS "../../../../components/sensors/vl53l1x/v2_striker2/*.c")
 
 idf_component_register(
     SRCS
@@ -23,13 +23,13 @@ idf_component_register(
     INCLUDE_DIRS
         "."
         "../include"
-        "../components/platform"
-        "../components/drivers/as5600"
-        "../components/drivers/bldc_pwm"
-        "../components/control"
-        "../components/drivers/bno055"
-        "../components/drivers/uart_console"
-        "../components/drivers/vl53l1x" 
+        "../../../../components/platform_hal/v2_striker2"
+        "../../../../components/sensors/as5600/v2_striker2"
+        "../../../../components/actuators/bldc_pwm/v2_striker2"
+        "../../../../components/control/pid_lib/v2_striker2"
+        "../../../../components/sensors/bno055/v2_striker2"
+        "../../../../components/comms/uart_console/v2_striker2"
+        "../../../../components/sensors/vl53l1x/v2_striker2" 
 
     
 )
